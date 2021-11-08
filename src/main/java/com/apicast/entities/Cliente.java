@@ -23,7 +23,11 @@ public class Cliente implements Serializable{
 	private String senha;
 	private Date dataN;
 	
-	public Cliente( String nome, String cpf, String email, String senha, Date dataN) {
+	public Cliente() {
+		
+	}
+	
+	public Cliente(String nome, String cpf, String email, String senha, Date dataN) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
@@ -33,9 +37,7 @@ public class Cliente implements Serializable{
 	
 	//***********Métodos**************
 	
-	public Cliente() {
-		
-	}
+	
 
 	//Get e Set
 	
