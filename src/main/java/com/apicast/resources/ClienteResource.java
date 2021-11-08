@@ -17,7 +17,7 @@ import com.apicast.entities.Cliente;
 import com.apicast.service.ClienteService;
 
 @RestController
-@RequestMapping(value="/cliente")
+@RequestMapping(value="/clientes")
 public class ClienteResource {
 	
 	//parte da api
