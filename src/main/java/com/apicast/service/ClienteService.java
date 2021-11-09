@@ -3,7 +3,11 @@ package com.apicast.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.apicast.entities.Cliente;
 import com.apicast.repositories.ClienteRepository;
+import com.apicast.service.exceptions.DatabaseException;
+import com.apicast.service.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClienteService {
@@ -27,7 +33,8 @@ public class ClienteService {
 	
 	public Cliente findById(Long id) {
 		Optional<Cliente>obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+
 	}
 	
 	//Insert
@@ -37,14 +44,25 @@ public class ClienteService {
 	
 	//Delete
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		}catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		}catch(DataIntegrityViolationException e ) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 
 	//Update
 	public Cliente update(Long id, Cliente cliente) {
-		Cliente entity = repository.getOne(id);
-		updateData(entity,cliente);
-		return repository.save(entity);
+
+		try {
+			Cliente entity = repository.getOne(id);
+			updateData(entity,cliente);
+			return repository.save(entity);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	
 	private void updateData(Cliente entity, Cliente cliente) {
