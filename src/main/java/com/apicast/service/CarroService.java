@@ -34,5 +34,17 @@ public class CarroService {
 		repository.deleteById(id);
 	}
 	
+	public Carro update(Long id,Carro carro) {
+		Carro entity = repository.getOne(id);
+		updateData(entity,carro);
+		return repository.save(entity);
+	}
+	
+	private void updateData(Carro entity,Carro carro ) {
+		entity.setCor(carro.getCor());
+		entity.setMarca(carro.getMarca());
+		entity.setPlaca(carro.getPlaca());
+		entity.setPreco(carro.getPreco());
+	}
 
 }
