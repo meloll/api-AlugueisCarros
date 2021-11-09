@@ -47,9 +47,9 @@ public class AluguelService {
 	}
 	
 	public Aluguel update(Long id, Aluguel aluguel) {
-		Aluguel entity = repository.getOne(id);
-		updateData(entity,aluguel);
 		try {
+			Aluguel entity = repository.getOne(id);
+			updateData(entity,aluguel);
 			return repository.save(entity);
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
