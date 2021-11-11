@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +21,14 @@ import com.apicast.service.ClienteService;
 
 @RestController
 @RequestMapping(value="/clientes")
+@CrossOrigin(origins = "*")
 public class ClienteResource {
 	
 	//parte da api
 	
 	@Autowired
 	private ClienteService service;
+	
 	
 	@GetMapping
 	public ResponseEntity<List<Cliente>>findAll(){
