@@ -8,13 +8,10 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.apicast.entities.Cliente;
+import com.apicast.repositories.AluguelRepository;
 import com.apicast.repositories.ClienteRepository;
 import com.apicast.service.exceptions.DatabaseException;
 import com.apicast.service.exceptions.ResourceNotFoundException;
@@ -24,6 +21,7 @@ public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository repository;
+	
 
 	//Select
 	
@@ -45,6 +43,7 @@ public class ClienteService {
 	//Delete
 	public void delete(Long id) {
 		try {
+			
 			repository.deleteById(id);
 		}catch(EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
