@@ -69,6 +69,6 @@ public class ClienteService {
 		entity.setDataN(cliente.getDataN());
 		entity.setEmail(cliente.getEmail());
 		entity.setNome(cliente.getNome());
-		entity.setSenha(cliente.getSenha());
+		//entity.setSenha(cliente.getSenha());
 	}
 }

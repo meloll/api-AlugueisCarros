@@ -19,9 +19,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.apicast.entities.Cliente;
 import com.apicast.service.ClienteService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value="/clientes")
 @CrossOrigin(origins = "*")
+@Api(value="API REST Cliente")
 public class ClienteResource {
 	
 	//parte da api
@@ -29,19 +33,21 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
-	
+	@ApiOperation(value="Retorna todos os clientes")
 	@GetMapping
 	public ResponseEntity<List<Cliente>>findAll(){
 		List<Cliente>list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@ApiOperation(value="Retorna apenas o cliente com o ID igual")
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Cliente>findById(@PathVariable Long id){
 		Cliente obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@ApiOperation(value="Insere um cliente")
 	@PostMapping
 	public ResponseEntity<Cliente>insert(@RequestBody Cliente obj){
 		obj = service.insert(obj);
@@ -50,13 +56,14 @@ public class ClienteResource {
 
 	}
 	
+	@ApiOperation(value="Deleta um cliente pelo ID")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void>delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	
+	@ApiOperation(value="Atualiza os dados do cliente pelo ID")
 	@PutMapping(value="/{id}")
 	public ResponseEntity <Cliente> update(@RequestBody Cliente cliente,@PathVariable Long id){
 		cliente = service.update(id,cliente);

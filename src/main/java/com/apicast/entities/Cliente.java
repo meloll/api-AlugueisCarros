@@ -2,12 +2,18 @@ package com.apicast.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity //Pois essa classe vai representar uma tabela
 @Table(name="tb_clientes")
@@ -22,6 +28,8 @@ public class Cliente implements Serializable{
 	private String email;
 	private String senha;
 	private Date dataN;
+	
+	
 	
 	public Cliente() {
 		
@@ -73,9 +81,10 @@ public class Cliente implements Serializable{
 		this.email = email;
 	}
 
+	/*
 	public String getSenha() {
 		return senha;
-	}
+	}*/
 
 	public void setSenha(String senha) {
 		this.senha = senha;
@@ -92,9 +101,15 @@ public class Cliente implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+
 
 	//Equals
 	
+	
+
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
